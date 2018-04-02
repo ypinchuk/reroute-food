@@ -3,7 +3,15 @@ class PostsController < ApplicationController
     end
     
     def create
-        render plain:params[:post].inspect
+        @post = Post.new(article_params)
+        
+        @post.save
+        redirect_to @post
     end
+    
+    private
+        def article_params
+            params.require(:post).permit(:title, :text)
+        end
     
 end
